@@ -338,4 +338,18 @@
 
   inicializarVimeo();
 })();
+
+  // Añade esto en el script de la página que va dentro del iframe
+window.addEventListener('load', function() {
+    const altura = document.documentElement.scrollHeight;
+    // Envía la altura al padre. El '*' permite cualquier origen, 
+    // pero en producción deberías usar la URL exacta del padre.
+    window.parent.postMessage({ tipo: 'ajusteAltura', valor: altura }, '*');
+});
+
+// Opcional: Re-calcular si la ventana cambia de tamaño
+window.addEventListener('resize', function() {
+    const altura = document.documentElement.scrollHeight;
+    window.parent.postMessage({ tipo: 'ajusteAltura', valor: altura }, '*');
+});
 </script>
